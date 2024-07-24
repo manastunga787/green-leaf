@@ -27,8 +27,6 @@ jobs:
         run: |
           node -v
           npm -v
-          yarn -v
-          bun -v
 
       - name: list of files after checkout
         run: |
