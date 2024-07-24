@@ -1,0 +1,51 @@
+name: Deploy Henio
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Publish Package green-leaf
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: install nodejs
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.x
+
+      - name: install bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun --version
+
+      - name: executes multiline script
+        run: |
+          node -v
+          npm -v
+          yarn -v
+          bun -v
+
+      - name: list of files after checkout
+        run: |
+          pwd
+          ls -a
+
+      - name: Bun install depencies
+        run: bun install
+
+      - name: Run Test
+        run: bun test
+
+      - name: show files after install
+        run: |
+          pwd
+          ls
+      - name: Publish package to npm
+        run: npm publish -- access public
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
