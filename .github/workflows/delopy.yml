@@ -51,6 +51,6 @@ jobs:
 
       - name: Publish package to npm
         run: npm publish --access public
-        working-directory: green-leaf
+
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_PUBLISH_TOKEN}}
